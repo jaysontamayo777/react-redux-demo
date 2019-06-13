@@ -13,6 +13,7 @@ import {
 
 import List from '../../components/List';
 import * as Action from '../../modules/itemsAction';
+import * as ColorAction from '../../modules/colorsAction';
 
 
 import * as T from './style';
@@ -24,6 +25,7 @@ class ToDo extends Component {
 
     this.state = {
       item: '',
+      color: 'black',
     };
   }
 
@@ -65,15 +67,34 @@ class ToDo extends Component {
     this.props.removeItem(index);
   };
 
+  changeColor = (e) => {
+    const selectedColor = e.target.value;
+    
+    this.props.setColor(selectedColor);
+    // this.setState({
+    //   color: selectedColor
+    // });
+
+  }
+
   render() {
     console.log('ToDo Page - render()');
-    const { items } = this.props;
+    const { items, color } = this.props;
     const { item } = this.state;
     return (
       <Container>
         <Row>
           <Col>
-            <T.Title>React-Redux to do list</T.Title>
+            <select onChange={this.changeColor} value={this.state.value}>
+              <option value="red">RED</option>
+              <option value="green">Green</option>
+              <option value="yellow">Yellow</option>
+            </select>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <T.Title color={color}>React-Redux to do list</T.Title>
           </Col>
         </Row>
         <Row>
@@ -107,10 +128,11 @@ class ToDo extends Component {
   }
 }
 
-const mapStateToProps = ({ items }) => {
+const mapStateToProps = ({ items, color }) => {
   console.log('ToDo Page - mapStateToProps()');
   return {
     items,
+    color,
   };
 };
 

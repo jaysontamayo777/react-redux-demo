@@ -28,3 +28,10 @@ export const removeItem = itemIndex => {
     payload: itemIndex,
   };
 };
+
+export const setColor = color => {
+  return {
+    type: TYPES.SET_COLOR,
+    payload: color 
+  }
+}
